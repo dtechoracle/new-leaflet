@@ -1,26 +1,510 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: 240 10% 3.9%;
+  --foreground: 0 0% 98%;
+  
+  --card: 240 10% 3.9%;
+  --card-foreground: 0 0% 98%;
+  
+  --popover: 240 10% 3.9%;
+  --popover-foreground: 0 0% 98%;
+  
+  --primary: 263.4 70% 50.4%;
+  --primary-foreground: 210 40% 98%;
+  
+  --secondary: 240 3.7% 15.9%;
+  --secondary-foreground: 0 0% 98%;
+  
+  --muted: 240 3.7% 15.9%;
+  --muted-foreground: 240 5% 64.9%;
+  
+  --accent: 240 3.7% 15.9%;
+  --accent-foreground: 0 0% 98%;
+  
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  
+  --border: 240 3.7% 15.9%;
+  --input: 240 3.7% 15.9%;
+  --ring: 240 4.9% 83.9%;
+  
+  --radius: 0.75rem;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.light {
+  --background: 0 0% 100%;
+  --foreground: 240 10% 3.9%;
+  
+  --card: 0 0% 100%;
+  --card-foreground: 240 10% 3.9%;
+  
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 10% 3.9%;
+  
+  --primary: 263.4 70% 50.4%;
+  --primary-foreground: 210 40% 98%;
+  
+  --secondary: 0 0% 100%;
+  --secondary-foreground: 240 5.9% 10%;
+  
+  --muted: 0 0% 100%;
+  --muted-foreground: 240 3.8% 46.1%;
+  
+  --accent: 0 0% 100%;
+  --accent-foreground: 240 5.9% 10%;
+  
+  --border: 240 5.9% 95%;
+  --input: 0 0% 100%;
+  --ring: 263.4 70% 50.4%;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Light mode overrides - remove all gray backgrounds */
+.light .bg-muted,
+.light .bg-card,
+.light [class*="bg-white/5"],
+.light [class*="bg-gray"],
+.light [class*="bg-black/"] {
+  background-color: white !important;
+}
+
+.light .border-border {
+  border-color: hsl(var(--border)) !important;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  
+  html {
+    overflow-x: hidden;
+  }
+  
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    overflow-x: hidden;
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .text-border {
+    color: hsl(var(--border));
+  }
+  
+  .bg-border {
+    background-color: hsl(var(--border));
+  }
+  
+  .border-border {
+    border-color: hsl(var(--border));
+  }
+}
+
+/* Highlight.js Dark Theme - Enhanced */
+pre code.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0;
+  background: transparent !important;
+  color: #e4e4e7;
+  font-family: 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-feature-settings: 'liga' 1, 'calt' 1;
+  line-height: 1.75;
+  letter-spacing: 0.01em;
+}
+
+pre code.hljs .hljs {
+  background: transparent !important;
+}
+
+/* Syntax highlighting colors - Enhanced for better visibility */
+pre code.hljs .hljs-keyword,
+pre code.hljs .hljs-selector-tag,
+pre code.hljs .hljs-built_in,
+pre code.hljs .hljs-name,
+pre code.hljs .hljs-tag {
+  color: #c084fc; /* Purple */
+  font-weight: 500;
+}
+
+pre code.hljs .hljs-string,
+pre code.hljs .hljs-title,
+pre code.hljs .hljs-section,
+pre code.hljs .hljs-attribute,
+pre code.hljs .hljs-literal,
+pre code.hljs .hljs-template-tag,
+pre code.hljs .hljs-template-variable,
+pre code.hljs .hljs-type,
+pre code.hljs .hljs-addition {
+  color: #34d399; /* Green */
+}
+
+pre code.hljs .hljs-comment,
+pre code.hljs .hljs-quote,
+pre code.hljs .hljs-deletion,
+pre code.hljs .hljs-meta {
+  color: #94a3b8; /* Slate gray */
+  font-style: italic;
+}
+
+pre code.hljs .hljs-number {
+  color: #60a5fa; /* Blue */
+  font-weight: 500;
+}
+
+pre code.hljs .hljs-function,
+pre code.hljs .hljs-title.function_ {
+  color: #fbbf24; /* Yellow/Amber */
+}
+
+pre code.hljs .hljs-variable,
+pre code.hljs .hljs-attr {
+  color: #f472b6; /* Pink */
+}
+
+pre code.hljs .hljs-operator {
+  color: #a78bfa; /* Light purple */
+}
+
+pre code.hljs .hljs-punctuation {
+  color: #cbd5e1; /* Light gray */
+}
+
+pre code.hljs .hljs-property {
+  color: #22d3ee; /* Cyan */
+}
+
+pre code.hljs .hljs-class,
+pre code.hljs .hljs-title.class_ {
+  color: #fb923c; /* Orange */
+}
+
+pre code.hljs .hljs-regexp {
+  color: #f87171; /* Red */
+}
+
+/* Light theme syntax highlighting */
+.light pre code.hljs {
+  color: #1e293b;
+}
+
+.light pre code.hljs .hljs-keyword,
+.light pre code.hljs .hljs-selector-tag,
+.light pre code.hljs .hljs-built_in,
+.light pre code.hljs .hljs-name,
+.light pre code.hljs .hljs-tag {
+  color: #7c3aed; /* Dark purple */
+  font-weight: 600;
+}
+
+.light pre code.hljs .hljs-string,
+.light pre code.hljs .hljs-title,
+.light pre code.hljs .hljs-section,
+.light pre code.hljs .hljs-attribute,
+.light pre code.hljs .hljs-literal,
+.light pre code.hljs .hljs-template-tag,
+.light pre code.hljs .hljs-template-variable,
+.light pre code.hljs .hljs-type,
+.light pre code.hljs .hljs-addition {
+  color: #059669; /* Dark green */
+}
+
+.light pre code.hljs .hljs-comment,
+.light pre code.hljs .hljs-quote,
+.light pre code.hljs .hljs-deletion,
+.light pre code.hljs .hljs-meta {
+  color: #64748b; /* Medium gray */
+  font-style: italic;
+}
+
+.light pre code.hljs .hljs-number {
+  color: #2563eb; /* Blue */
+  font-weight: 600;
+}
+
+.light pre code.hljs .hljs-function,
+.light pre code.hljs .hljs-title.function_ {
+  color: #d97706; /* Amber */
+}
+
+.light pre code.hljs .hljs-variable,
+.light pre code.hljs .hljs-attr {
+  color: #c026d3; /* Magenta */
+}
+
+.light pre code.hljs .hljs-operator {
+  color: #7c3aed; /* Purple */
+}
+
+.light pre code.hljs .hljs-punctuation {
+  color: #475569; /* Dark gray */
+}
+
+.light pre code.hljs .hljs-property {
+  color: #0891b2; /* Cyan */
+}
+
+.light pre code.hljs .hljs-class,
+.light pre code.hljs .hljs-title.class_ {
+  color: #ea580c; /* Orange */
+}
+
+.light pre code.hljs .hljs-regexp {
+  color: #dc2626; /* Red */
+}
+
+/* Theme-specific code colors - SCOPED to docs container */
+[data-docs-container][data-theme="purple"] pre code.hljs {
+  color: #e9d5ff;
+}
+
+[data-docs-container][data-theme="purple"] pre code.hljs .hljs-keyword {
+  color: #c084fc;
+}
+
+[data-docs-container][data-theme="purple"] pre code.hljs .hljs-string {
+  color: #a5f3fc;
+}
+
+[data-docs-container][data-theme="purple"] pre code.hljs .hljs-number {
+  color: #93c5fd;
+}
+
+[data-docs-container][data-theme="purple"] pre code.hljs .hljs-comment {
+  color: #c4b5fd;
+}
+
+[data-docs-container][data-theme="blue"] pre code.hljs {
+  color: #dbeafe;
+}
+
+[data-docs-container][data-theme="blue"] pre code.hljs .hljs-keyword {
+  color: #60a5fa;
+}
+
+[data-docs-container][data-theme="blue"] pre code.hljs .hljs-string {
+  color: #6ee7b7;
+}
+
+[data-docs-container][data-theme="blue"] pre code.hljs .hljs-number {
+  color: #93c5fd;
+}
+
+[data-docs-container][data-theme="blue"] pre code.hljs .hljs-comment {
+  color: #a5b4fc;
+}
+
+[data-docs-container][data-theme="green"] pre code.hljs {
+  color: #d1fae5;
+}
+
+[data-docs-container][data-theme="green"] pre code.hljs .hljs-keyword {
+  color: #34d399;
+}
+
+[data-docs-container][data-theme="green"] pre code.hljs .hljs-string {
+  color: #6ee7b7;
+}
+
+[data-docs-container][data-theme="green"] pre code.hljs .hljs-number {
+  color: #7dd3fc;
+}
+
+[data-docs-container][data-theme="green"] pre code.hljs .hljs-comment {
+  color: #86efac;
+}
+
+[data-docs-container][data-theme="minimal"] pre code.hljs {
+  color: #374151;
+}
+
+[data-docs-container][data-theme="minimal"] pre code.hljs .hljs-keyword {
+  color: #6366f1;
+}
+
+[data-docs-container][data-theme="minimal"] pre code.hljs .hljs-string {
+  color: #10b981;
+}
+
+[data-docs-container][data-theme="minimal"] pre code.hljs .hljs-number {
+  color: #3b82f6;
+}
+
+[data-docs-container][data-theme="minimal"] pre code.hljs .hljs-comment {
+  color: #9ca3af;
+}
+
+/* Custom prose styles for documentation */
+.prose {
+  color: hsl(var(--foreground));
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  color: hsl(var(--foreground));
+  font-weight: 600;
+}
+
+.prose p {
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+  line-height: 1.75;
+}
+
+.prose code {
+  font-size: 0.875em;
+}
+
+.prose pre {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.light .prose pre {
+  background: transparent;
+  border: none;
+}
+
+.prose pre code {
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  font-family: 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-feature-settings: 'liga' 1, 'calt' 1;
+}
+
+/* Enhanced code block styling */
+pre code.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0;
+  background: transparent !important;
+}
+
+pre code.hljs .hljs {
+  background: transparent !important;
+}
+
+/* Better line spacing in code */
+pre code {
+  line-height: 1.75;
+  letter-spacing: 0.01em;
+  background: transparent !important;
+}
+
+/* Ensure syntax highlighting works */
+pre code.hljs * {
+  background: transparent !important;
+}
+
+.prose strong {
+  color: hsl(var(--foreground));
+  font-weight: 600;
+}
+
+.prose em {
+  color: hsl(var(--muted-foreground));
+  font-style: italic;
+}
+
+.prose code {
+  background: hsl(var(--muted));
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+  font-weight: 500;
+}
+
+.prose a {
+  color: hsl(var(--primary));
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.prose a:hover {
+  color: hsl(var(--primary) / 0.8);
+}
+
+/* Mobile navbar - fully opaque - override ALL 6 theme presets */
+@media (max-width: 767px) {
+  /* Override navbar for ALL theme presets on mobile - highest specificity */
+  html[data-theme="default"] header.sticky,
+  html[data-theme="light"] header.sticky,
+  html[data-theme="purple"] header.sticky,
+  html[data-theme="blue"] header.sticky,
+  html[data-theme="green"] header.sticky,
+  html[data-theme="minimal"] header.sticky,
+  html.dark header.sticky,
+  html.light header.sticky,
+  body[data-theme="default"] header.sticky,
+  body[data-theme="light"] header.sticky,
+  body[data-theme="purple"] header.sticky,
+  body[data-theme="blue"] header.sticky,
+  body[data-theme="green"] header.sticky,
+  body[data-theme="minimal"] header.sticky,
+  header.sticky,
+  header.mobile-navbar-opaque,
+  header[class*="sticky"],
+  header[class*="navbar"] {
+    background-color: #000000 !important;
+    background: #000000 !important;
+    background-image: none !important;
+    opacity: 1 !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  
+  /* Ensure no transparency on mobile navbar with any backdrop classes */
+  html[data-theme] header[class*="backdrop"],
+  body[data-theme] header[class*="backdrop"],
+  header[class*="backdrop"] {
+    background-color: #000000 !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
+
+/* Mobile sidebar theme-specific enhancements */
+@media (max-width: 1023px) {
+  /* Smooth slide-in animation */
+  aside[class*="fixed"][class*="inset-0"] {
+    animation: slideInLeft 0.3s ease-out;
+  }
+  
+  @keyframes slideInLeft {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+  
+  /* Theme-specific sidebar backgrounds - SCOPED to docs container */
+  [data-docs-container][data-theme="purple"] aside[class*="fixed"] {
+    background: linear-gradient(135deg, hsl(270 20% 10%) 0%, hsl(270 25% 8%) 100%);
+  }
+  
+  [data-docs-container][data-theme="blue"] aside[class*="fixed"] {
+    background: linear-gradient(135deg, hsl(217 33% 17%) 0%, hsl(217 40% 12%) 100%);
+  }
+  
+  [data-docs-container][data-theme="green"] aside[class*="fixed"] {
+    background: linear-gradient(135deg, hsl(142 30% 12%) 0%, hsl(142 35% 8%) 100%);
+  }
+  
+  [data-docs-container][data-theme="light"] aside[class*="fixed"] {
+    background: #ffffff;
+  }
+  
+  [data-docs-container][data-theme="minimal"] aside[class*="fixed"] {
+    background: #f9fafb;
+  }
 }

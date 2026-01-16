@@ -1,0 +1,135 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+  // For production, change to:
+  // provider = "postgresql"
+  // url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  clerkUserId   String    @unique
+  email         String
+  name          String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  githubConnection GitHubConnection?
+  projects        Project[]
+}
+
+model GitHubConnection {
+  id            String   @id @default(cuid())
+  userId        String   @unique
+  accessToken   String
+  refreshToken  String?
+  tokenExpiresAt DateTime?
+  githubUserId  String
+  githubUsername String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Project {
+  id              String   @id @default(cuid())
+  userId          String
+  name            String
+  description     String?
+  repositoryName  String
+  repositoryOwner String
+  repositoryUrl   String
+  status          String   @default("DRAFT") // DRAFT | SCANNING | READY | PUBLISHED
+  publishedUrl    String?
+  
+  // Template customization
+  logoUrl         String?
+  primaryColor    String?  @default("#6366f1")
+  secondaryColor  String?  @default("#8b5cf6")
+  customText      String?  // JSON string of custom text fields
+  
+  // Advanced customization
+  customCSS       String?  // Custom CSS injection
+  customJS        String?  // Custom JavaScript injection
+  themePreset     String?  @default("default") // Theme preset name
+  fontFamily      String?  // Custom font family
+  fontSize        String?  // Base font size
+  
+  // Generated documentation content
+  documentation   String?  // JSON string of generated docs
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Relations
+  versions        ProjectVersion[]
+  analytics       ProjectAnalytics[]
+  comments        Comment[]
+  
+  @@index([userId])
+  @@index([status])
+  @@unique([userId, repositoryName, repositoryOwner])
+}
+
+model ProjectVersion {
+  id            String   @id @default(cuid())
+  projectId     String
+  versionNumber Int
+  documentation String   // JSON string of documentation at this version
+  changelog     String?  // Description of changes
+  createdAt     DateTime @default(now())
+  
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  
+  @@index([projectId])
+  @@unique([projectId, versionNumber])
+}
+
+model ProjectAnalytics {
+  id          String   @id @default(cuid())
+  projectId   String
+  sectionId   String?  // Which section was viewed (null = overall)
+  viewCount   Int      @default(1)
+  timeSpent   Int?     // Time spent in seconds
+  referrer    String?  // Where the visitor came from
+  userAgent   String?
+  ipAddress   String?
+  createdAt   DateTime @default(now())
+  
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  
+  @@index([projectId])
+  @@index([sectionId])
+  @@index([createdAt])
+}
+
+model Comment {
+  id          String   @id @default(cuid())
+  projectId   String
+  sectionId   String?  // Which section the comment is on (null = general)
+  authorName  String   @default("Anonymous")
+  authorEmail String?
+  content     String
+  parentId    String?  // For threaded comments/replies
+  isResolved  Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  parent  Comment? @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
+  replies Comment[] @relation("CommentReplies")
+  
+  @@index([projectId])
+  @@index([sectionId])
+  @@index([parentId])
+}
