@@ -47,9 +47,16 @@ export async function GET() {
     if (!clientId) {
       console.error("GITHUB_CLIENT_ID is not configured");
       return NextResponse.json(
-        { error: "GitHub OAuth is not configured" },
+        { 
+          error: "GitHub OAuth is not configured. Please set GITHUB_CLIENT_ID in your environment variables.",
+          details: "This is a server configuration issue. Check your Vercel environment variables."
+        },
         { status: 500 },
       );
+    }
+
+    if (!appUrl || appUrl === "http://localhost:3000") {
+      console.warn("NEXT_PUBLIC_APP_URL is not set or using default. This may cause OAuth callback issues in production.");
     }
 
     const state = Buffer.from(JSON.stringify({ userId: user.id })).toString(
@@ -66,8 +73,13 @@ export async function GET() {
     });
   } catch (error) {
     console.error("Error checking GitHub connection:", error);
+    const errorMessage = error instanceof Error ? error.message : "Unknown error";
     return NextResponse.json(
-      { error: "Failed to check GitHub connection" },
+      { 
+        error: "Failed to check GitHub connection",
+        details: errorMessage,
+        hint: "Check server logs for more details. This might be a database connection issue."
+      },
       { status: 500 },
     );
   }

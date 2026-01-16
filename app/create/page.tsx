@@ -84,16 +84,43 @@ function CreateProjectContent() {
     };
 
     const handleConnect = async () => {
+        console.log("Connect button clicked");
+        setLoading(true);
         try {
+            console.log("Fetching /api/github/connect...");
             const response = await fetch("/api/github/connect");
-            if (!response.ok) throw new Error("Failed to initiate connection");
+            console.log("Response status:", response.status);
+            
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({ error: "Unknown error" }));
+                throw new Error(errorData.error || "Failed to initiate connection");
+            }
             
             const data = await response.json();
-            if (data.authUrl) {
+            
+            if (data.error) {
+                const errorMsg = data.error + (data.details ? `\n\nDetails: ${data.details}` : '') + (data.hint ? `\n\nHint: ${data.hint}` : '');
+                alert(`Error: ${errorMsg}`);
+                console.error("GitHub connection error:", data);
+                return;
+            }
+            
+            if (data.connected) {
+                // Already connected, move to next step
+                setGithubConnected(true);
+                setGithubUsername(data.username);
+                setCurrentStep(2);
+            } else if (data.authUrl) {
+                // Redirect to GitHub OAuth
                 window.location.href = data.authUrl;
+            } else {
+                throw new Error("No auth URL received from server");
             }
         } catch (error) {
             console.error("Error connecting GitHub:", error);
+            alert(`Failed to connect GitHub: ${error instanceof Error ? error.message : "Unknown error"}`);
+        } finally {
+            setLoading(false);
         }
     };
 
