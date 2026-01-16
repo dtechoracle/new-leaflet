@@ -125,7 +125,7 @@ export default function Home() {
                     </span>
                   </div>
                   <div className="mt-1 text-sm font-medium">
-                    dtechoracle/EventSpacePro-frontend
+                    acme-corp/undocumented-api
                   </div>
                 </div>
 
