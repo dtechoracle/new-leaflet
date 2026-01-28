@@ -117,3 +117,7 @@ If you see database connection errors:
 - Check that the callback URL in GitHub matches `NEXT_PUBLIC_APP_URL/api/github/callback`
 - Ensure `NEXT_PUBLIC_APP_URL` matches your actual application URL
 
+
+
+
+

@@ -187,3 +187,7 @@ npx prisma studio
 - Check `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` are correct
 - Ensure `NEXT_PUBLIC_APP_URL` is set correctly
 
+
+
+
+

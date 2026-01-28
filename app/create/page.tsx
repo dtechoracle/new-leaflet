@@ -186,25 +186,92 @@ function CreateProjectContent() {
     };
 
     return (
-        <div className="container max-w-4xl px-4 py-10 mx-auto">
+        <div className="container max-w-4xl px-4 py-8 md:py-10 mx-auto">
             {/* Progress Steps */}
-            <div className="flex items-center justify-between mb-12 relative">
-                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-full h-1 bg-white/10 -z-10" />
-                {steps.map((step) => (
-                    <div key={step.id} className="flex flex-col items-center gap-2 bg-background px-2">
-                        <div
-                            className={`h-8 w-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors ${currentStep >= step.id
-                                    ? "bg-primary text-white shadow-lg shadow-primary/50"
-                                    : "bg-white/10 text-muted-foreground"
-                                }`}
-                        >
-                            {currentStep > step.id ? <CheckCircle2 className="h-5 w-5" /> : step.id}
+            {/* Mobile: vertical timeline */}
+            <div className="mb-8 space-y-4 md:hidden">
+                {steps.map((step, index) => {
+                    const isActive = currentStep === step.id
+                    const isCompleted = currentStep > step.id
+                    const isLast = index === steps.length - 1
+
+                    return (
+                        <div key={step.id} className="flex items-start gap-3">
+                            <div className="flex flex-col items-center">
+                                <div
+                                    className={`h-7 w-7 rounded-full flex items-center justify-center text-xs font-semibold border transition-colors ${
+                                        isCompleted
+                                            ? "bg-primary text-white border-primary"
+                                            : isActive
+                                            ? "bg-white text-primary border-primary"
+                                            : "bg-transparent text-muted-foreground border-white/20"
+                                    }`}
+                                >
+                                    {isCompleted ? (
+                                        <CheckCircle2 className="h-4 w-4" />
+                                    ) : (
+                                        step.id
+                                    )}
+                                </div>
+                                {!isLast && (
+                                    <div className="mt-1 w-px flex-1 bg-white/10" />
+                                )}
+                            </div>
+                            <div className="flex-1">
+                                <p
+                                    className={`text-sm font-medium ${
+                                        isActive || isCompleted
+                                            ? "text-foreground"
+                                            : "text-muted-foreground"
+                                    }`}
+                                >
+                                    {step.title}
+                                </p>
+                            </div>
                         </div>
-                        <span className={`text-xs font-medium ${currentStep >= step.id ? "text-foreground" : "text-muted-foreground"}`}>
-                            {step.title}
-                        </span>
-                    </div>
-                ))}
+                    )
+                })}
+            </div>
+
+            {/* Desktop: horizontal stepper */}
+            <div className="hidden md:flex items-start justify-between mb-12 relative gap-4">
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-full h-px bg-white/10 -z-10" />
+                {steps.map((step) => {
+                    const isActive = currentStep === step.id
+                    const isCompleted = currentStep > step.id
+
+                    return (
+                        <div
+                            key={step.id}
+                            className="flex flex-col items-center gap-1 bg-background px-2"
+                        >
+                            <div
+                                className={`h-8 w-8 rounded-full flex items-center justify-center text-sm font-bold border transition-colors ${
+                                    isCompleted
+                                        ? "bg-primary text-white border-primary"
+                                        : isActive
+                                        ? "bg-white text-primary border-primary"
+                                        : "bg-transparent text-muted-foreground border-white/20"
+                                }`}
+                            >
+                                {isCompleted ? (
+                                    <CheckCircle2 className="h-5 w-5" />
+                                ) : (
+                                    step.id
+                                )}
+                            </div>
+                            <span
+                                className={`text-xs font-medium ${
+                                    isActive || isCompleted
+                                        ? "text-foreground"
+                                        : "text-muted-foreground"
+                                }`}
+                            >
+                                {step.title}
+                            </span>
+                        </div>
+                    )
+                })}
             </div>
 
             <div className="min-h-[400px]">
@@ -231,7 +298,8 @@ function CreateProjectContent() {
                                     </>
                                 ) : (
                                     <>
-                                        Connect GitHub Account <ArrowRight className="ml-2 h-4 w-4" />
+                                        Connect GitHub Account{" "}
+                                        <ArrowRight className="ml-2 h-4 w-4" />
                                     </>
                                 )}
                             </Button>
@@ -245,28 +313,29 @@ function CreateProjectContent() {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}
                         >
-                            <div className="flex items-center justify-between mb-6">
-                                <h2 className="text-2xl font-bold">Select a Repository</h2>
+                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-6">
+                                <h2 className="text-2xl font-bold text-left">Select a Repository</h2>
                                 {githubUsername && (
-                                    <span className="text-sm text-muted-foreground">
+                                    <span className="text-xs sm:text-sm text-muted-foreground sm:text-right">
                                         Connected as <span className="font-medium">{githubUsername}</span>
                                     </span>
                                 )}
                             </div>
-                            {loading ? (
-                                <div className="flex items-center justify-center py-12">
-                                    <Loader2 className="h-8 w-8 animate-spin text-primary" />
-                                </div>
-                            ) : repos.length === 0 ? (
-                                <div className="text-center py-12">
-                                    <p className="text-muted-foreground mb-4">No repositories found.</p>
-                                    <Button variant="outline" onClick={fetchRepositories}>
-                                        Refresh
-                                    </Button>
-                                </div>
-                            ) : (
-                                <>
-                                    <div className="grid gap-4 max-h-[500px] overflow-y-auto">
+                            <div className="space-y-4">
+                                {loading ? (
+                                    <div className="flex items-center justify-center py-12">
+                                        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                                    </div>
+                                ) : repos.length === 0 ? (
+                                    <div className="text-center py-12">
+                                        <p className="text-muted-foreground mb-4">No repositories found.</p>
+                                        <Button variant="outline" onClick={fetchRepositories}>
+                                            Refresh
+                                        </Button>
+                                    </div>
+                                ) : (
+                                    <>
+                                        <div className="grid gap-4 max-h-[420px] sm:max-h-[500px] overflow-y-auto pr-1">
                                         {repos.map((repo) => (
                                             <div
                                                 key={repo.id}
@@ -300,24 +369,27 @@ function CreateProjectContent() {
                                                 </div>
                                             </div>
                                         ))}
-                                    </div>
-                                    <div className="flex justify-between mt-8">
-                                        <Button
-                                            variant="outline"
-                                            onClick={() => setCurrentStep(1)}
-                                        >
-                                            <ArrowLeft className="mr-2 h-4 w-4" /> Back
-                                        </Button>
-                                        <Button
-                                            disabled={!selectedRepo}
-                                            onClick={handleStartScanning}
-                                            variant="premium"
-                                        >
-                                            Start Scanning <ArrowRight className="ml-2 h-4 w-4" />
-                                        </Button>
-                                    </div>
-                                </>
-                            )}
+                                        </div>
+                                        <div className="flex flex-col-reverse sm:flex-row sm:justify-between gap-3 mt-6 sm:mt-8">
+                                            <Button
+                                                variant="outline"
+                                                onClick={() => setCurrentStep(1)}
+                                                className="w-full sm:w-auto"
+                                            >
+                                                <ArrowLeft className="mr-2 h-4 w-4" /> Back
+                                            </Button>
+                                            <Button
+                                                disabled={!selectedRepo}
+                                                onClick={handleStartScanning}
+                                                variant="premium"
+                                                className="w-full sm:w-auto"
+                                            >
+                                                Start Scanning <ArrowRight className="ml-2 h-4 w-4" />
+                                            </Button>
+                                        </div>
+                                    </>
+                                )}
+                            </div>
                         </motion.div>
                     )}
 
@@ -391,13 +463,15 @@ function CreateProjectContent() {
                                 Your documentation site has been generated successfully. You can now customize the look and feel or publish it immediately.
                             </p>
 
-                            <div className="flex justify-center gap-4">
+                            <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
                                 <Link href="/dashboard">
-                                    <Button variant="outline">Back to Dashboard</Button>
+                                    <Button variant="outline" className="w-full sm:w-auto">
+                                        Back to Dashboard
+                                    </Button>
                                 </Link>
                                 {projectId && (
                                     <Link href={`/editor/${projectId}`}>
-                                        <Button variant="premium" className="px-8">
+                                        <Button variant="premium" className="w-full sm:w-auto px-8">
                                             Open Editor <LayoutTemplate className="ml-2 h-4 w-4" />
                                         </Button>
                                     </Link>

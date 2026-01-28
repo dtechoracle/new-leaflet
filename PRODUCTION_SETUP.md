@@ -69,3 +69,7 @@ If you want to keep using SQLite locally, you can:
 
 The Prisma schema now uses PostgreSQL by default, which is correct for production.
 
+
+
+
+
