@@ -142,7 +142,16 @@ export function CommentsPanel({ projectId, sectionId }: CommentsPanelProps) {
 
       {/* Comments panel */}
       {isOpen && (
-        <div className="fixed bottom-6 right-6 z-50 w-[calc(100vw-3rem)] sm:w-96 max-w-[calc(100vw-3rem)] sm:max-w-md max-h-[600px] bg-card border border-border rounded-lg shadow-2xl flex flex-col" style={{ position: "fixed" }}>
+        <div
+          className={cn(
+            "fixed bottom-6 right-6 z-50",
+            "w-[calc(100vw-3rem)] sm:w-96 max-w-[calc(100vw-3rem)] sm:max-w-md max-h-[600px]",
+            // Solid, non-transparent surface so docs content doesn't bleed through
+            "rounded-lg border border-border shadow-2xl flex flex-col",
+            "bg-[#050509]"
+          )}
+          style={{ position: "fixed" }}
+        >
           {/* Header */}
           <div className="flex items-center justify-between p-4 border-b border-border">
             <div>
