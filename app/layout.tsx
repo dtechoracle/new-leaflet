@@ -23,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en" suppressHydrationWarning>
+      <html lang="en" suppressHydrationWarning className="dark">
         <body className={cn(poppins.className, "min-h-screen bg-background antialiased")}>
           <ThemeProvider
             attribute="class"

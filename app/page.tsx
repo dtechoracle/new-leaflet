@@ -23,17 +23,17 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div className="relative min-h-screen overflow-hidden bg-background text-foreground">
-      {/* Subtle purple glows - theme aware */}
+      {/* Subtle purple glows */}
       <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute -top-40 left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-purple-700/35 dark:bg-purple-700/35 light:bg-purple-200/20 blur-[140px]" />
-        <div className="absolute bottom-[-260px] right-[-120px] h-[420px] w-[420px] rounded-full bg-purple-500/30 dark:bg-purple-500/30 light:bg-purple-300/20 blur-[140px]" />
+        <div className="absolute -top-40 left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-purple-700/35 blur-[140px]" />
+        <div className="absolute bottom-[-260px] right-[-120px] h-[420px] w-[420px] rounded-full bg-purple-500/30 blur-[140px]" />
       </div>
 
       {/* Hero */}
       <section className="container relative mx-auto flex max-w-7xl flex-col gap-16 px-6 pb-32 pt-32 md:flex-row md:items-center md:gap-20 lg:pt-40 lg:pb-40">
         {/* Left column — copy & CTAs */}
         <div className="max-w-2xl space-y-6">
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 dark:bg-white/5 bg-purple-50 px-4 py-1.5 text-sm font-medium text-muted-foreground backdrop-blur">
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm font-medium text-muted-foreground backdrop-blur">
             <span className="flex h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
             AI documentation OS for your repos
           </div>
@@ -67,7 +67,7 @@ export default function Home() {
               <Button
                 size="lg"
                 variant="outline"
-                className="h-14 px-6 text-base dark:bg-white/5 bg-white border-white/10 dark:border-white/10 hover:bg-white/10 dark:hover:bg-white/10"
+                className="h-14 px-6 text-base bg-white/5 border-white/10 hover:bg-white/10"
               >
                 <Github className="mr-2 h-5 w-5" />
                 Star project
@@ -211,7 +211,7 @@ export default function Home() {
       </section>
 
       {/* Secondary band – how it works */}
-      <section className="border-t border-white/5 dark:bg-black/40 bg-white">
+      <section className="border-t border-white/5 bg-black/40">
         <div className="container mx-auto max-w-6xl px-4 py-16 md:py-20">
           <div className="space-y-6">
             <h2 className="text-3xl font-semibold md:text-4xl lg:text-5xl text-left">
@@ -265,7 +265,7 @@ export default function Home() {
       </section>
 
       {/* Custom Domain & Public Access */}
-      <section className="border-t border-white/5 dark:bg-black/40 bg-white">
+      <section className="border-t border-white/5 bg-black/40">
         <div className="container mx-auto max-w-6xl px-4 py-16 md:py-20">
           <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div>
@@ -285,7 +285,7 @@ export default function Home() {
           </div>
 
           <div className="grid gap-6 md:grid-cols-2">
-            <Card className="dark:bg-white/5 bg-white p-6 border dark:border-white/10 border-gray-200">
+            <Card className="bg-white/5 p-6 border border-white/10">
               <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-purple-600/20 text-purple-200">
                 <Link2 className="h-5 w-5" />
               </div>
@@ -297,26 +297,26 @@ export default function Home() {
               </p>
               <ul className="space-y-3 text-sm text-muted-foreground md:text-base">
                 <li className="flex items-center gap-2">
-                  <Check className="h-3.5 w-3.5 dark:text-purple-300 text-purple-600 flex-shrink-0" />
+                  <Check className="h-3.5 w-3.5 text-purple-300 flex-shrink-0" />
                   <span>Easy DNS configuration with step-by-step guides</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <Check className="h-3.5 w-3.5 dark:text-purple-300 text-purple-600 flex-shrink-0" />
+                  <Check className="h-3.5 w-3.5 text-purple-300 flex-shrink-0" />
                   <span>Automatic SSL certificates included</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <Check className="h-3.5 w-3.5 dark:text-purple-300 text-purple-600 flex-shrink-0" />
+                  <Check className="h-3.5 w-3.5 text-purple-300 flex-shrink-0" />
                   <span>Subdomain support (docs.yourcompany.com)</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <Check className="h-3.5 w-3.5 dark:text-purple-300 text-purple-600 flex-shrink-0" />
+                  <Check className="h-3.5 w-3.5 text-purple-300 flex-shrink-0" />
                   <span>Works with any DNS provider</span>
                 </li>
               </ul>
             </Card>
 
-            <Card className="dark:bg-white/5 bg-white p-6 border dark:border-white/10 border-gray-200">
-              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg dark:bg-emerald-600/20 bg-emerald-100 dark:text-emerald-200 text-emerald-600">
+            <Card className="bg-white/5 p-6 border border-white/10">
+              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-600/20 text-emerald-200">
                 <Lock className="h-5 w-5" />
               </div>
               <h3 className="mb-3 text-lg font-semibold md:text-xl">Publicly accessible</h3>
@@ -326,19 +326,19 @@ export default function Home() {
               </p>
               <ul className="space-y-3 text-sm text-muted-foreground md:text-base">
                 <li className="flex items-center gap-2">
-                  <Check className="h-3.5 w-3.5 dark:text-purple-300 text-purple-600 flex-shrink-0" />
+                  <Check className="h-3.5 w-3.5 text-purple-300 flex-shrink-0" />
                   <span>Zero authentication friction for readers</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <Check className="h-3.5 w-3.5 dark:text-purple-300 text-purple-600 flex-shrink-0" />
+                  <Check className="h-3.5 w-3.5 text-purple-300 flex-shrink-0" />
                   <span>SEO-friendly public URLs</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <Check className="h-3.5 w-3.5 dark:text-purple-300 text-purple-600 flex-shrink-0" />
+                  <Check className="h-3.5 w-3.5 text-purple-300 flex-shrink-0" />
                   <span>Shareable links that work instantly</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <Check className="h-3.5 w-3.5 dark:text-purple-300 text-purple-600 flex-shrink-0" />
+                  <Check className="h-3.5 w-3.5 text-purple-300 flex-shrink-0" />
                   <span>Perfect for customer-facing documentation</span>
                 </li>
               </ul>
@@ -348,7 +348,7 @@ export default function Home() {
       </section>
 
       {/* Metrics band */}
-      <section className="border-t border-white/5 dark:bg-black/60 bg-white">
+      <section className="border-t border-white/5 bg-black/60">
         <div className="container mx-auto grid max-w-6xl gap-8 px-4 py-16 md:grid-cols-4 md:py-20">
           <div className="space-y-3 md:col-span-1">
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-purple-300">
@@ -401,7 +401,7 @@ export default function Home() {
       </section>
 
       {/* Use cases / sections */}
-      <section className="border-t border-white/5 dark:bg-black bg-white">
+      <section className="border-t border-white/5 bg-black">
         <div className="container mx-auto max-w-6xl px-4 py-16 md:py-20">
           <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div>
@@ -497,7 +497,7 @@ export default function Home() {
       </section>
 
       {/* Pricing preview */}
-      <section className="border-t border-white/5 dark:bg-black/40 bg-white">
+      <section className="border-t border-white/5 bg-black/40">
         <div className="container mx-auto max-w-6xl px-4 py-16 md:py-20">
           <div className="mb-10 flex flex-col items-start gap-4 md:flex-row md:items-end md:justify-between">
             <div>
@@ -519,7 +519,7 @@ export default function Home() {
           </div>
 
           <div className="grid gap-6 md:grid-cols-3">
-            <Card className="flex flex-col justify-between dark:bg-black/60 bg-white p-6 border dark:border-white/10 border-gray-200">
+            <Card className="flex flex-col justify-between bg-black/60 p-6 border border-white/10">
               <div className="space-y-2">
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-purple-300">
                   Starter
@@ -531,11 +531,11 @@ export default function Home() {
               </div>
               <ul className="mt-4 space-y-1.5 text-xs text-muted-foreground">
                 <li className="flex items-center gap-2">
-                  <Check className="h-3 w-3 dark:text-purple-300 text-purple-600" />
+                  <Check className="h-3 w-3 text-purple-300" />
                   1 connected GitHub repo
                 </li>
                 <li className="flex items-center gap-2">
-                  <Check className="h-3 w-3 dark:text-purple-300 text-purple-600" />
+                  <Check className="h-3 w-3 text-purple-300" />
                   AI‑generated docs & search
                 </li>
               </ul>
@@ -570,7 +570,7 @@ export default function Home() {
               </ul>
             </Card>
 
-            <Card className="flex flex-col justify-between dark:bg-black/60 bg-white p-6 border dark:border-white/10 border-gray-200">
+            <Card className="flex flex-col justify-between bg-black/60 p-6 border border-white/10">
               <div className="space-y-2">
                 <p className="text-sm font-semibold uppercase tracking-[0.18em] text-purple-300">
                   Enterprise
@@ -582,11 +582,11 @@ export default function Home() {
               </div>
               <ul className="mt-4 space-y-2 text-sm text-muted-foreground md:text-base">
                 <li className="flex items-center gap-2">
-                  <Check className="h-3 w-3 dark:text-purple-300 text-purple-600" />
+                  <Check className="h-3 w-3 text-purple-300" />
                   Unlimited workspaces and viewers
                 </li>
                 <li className="flex items-center gap-2">
-                  <Check className="h-3 w-3 dark:text-purple-300 text-purple-600" />
+                  <Check className="h-3 w-3 text-purple-300" />
                   SSO, audit logs, data residency
                 </li>
               </ul>
@@ -596,7 +596,7 @@ export default function Home() {
       </section>
 
       {/* Final CTA */}
-      <section className="border-t border-white/5 dark:bg-black bg-white">
+      <section className="border-t border-white/5 bg-black">
         <div className="container mx-auto max-w-6xl px-4 py-16 md:py-20">
           <div className="flex flex-col items-center justify-between gap-8 text-center md:flex-row md:text-left">
             <div className="space-y-3">
@@ -631,7 +631,7 @@ export default function Home() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="h-14 w-full border-purple-500/40 dark:bg-black/40 bg-white text-base hover:bg-purple-950/40 dark:hover:bg-purple-950/40"
+                  className="h-14 w-full border-purple-500/40 bg-black/40 text-base hover:bg-purple-950/40"
                 >
                   View example docs
                 </Button>
@@ -642,7 +642,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-white/5 dark:bg-black/95 bg-white">
+      <footer className="border-t border-white/5 bg-black/95">
         <div className="container mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-4 py-5 text-xs text-muted-foreground md:flex-row">
           <div className="flex items-center gap-2">
             <span className="font-semibold text-foreground">Leaflet</span>

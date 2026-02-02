@@ -49,9 +49,6 @@ export function Navbar() {
         >
             <div className="container flex h-16 items-center justify-between px-4 md:px-6">
                 <Link href="/" className="flex items-center gap-2 font-bold text-xl">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600">
-                        <Sparkles className="h-4 w-4 text-white" />
-                    </div>
                     <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-white/60">
                         Leaflet
                     </span>

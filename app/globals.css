@@ -32,45 +32,7 @@
   --radius: 0.75rem;
 }
 
-.light {
-  --background: 0 0% 100%;
-  --foreground: 240 10% 3.9%;
-  
-  --card: 0 0% 100%;
-  --card-foreground: 240 10% 3.9%;
-  
-  --popover: 0 0% 100%;
-  --popover-foreground: 240 10% 3.9%;
-  
-  --primary: 263.4 70% 50.4%;
-  --primary-foreground: 210 40% 98%;
-  
-  --secondary: 0 0% 100%;
-  --secondary-foreground: 240 5.9% 10%;
-  
-  --muted: 0 0% 100%;
-  --muted-foreground: 240 3.8% 46.1%;
-  
-  --accent: 0 0% 100%;
-  --accent-foreground: 240 5.9% 10%;
-  
-  --border: 240 5.9% 95%;
-  --input: 0 0% 100%;
-  --ring: 263.4 70% 50.4%;
-}
-
-/* Light mode overrides - remove all gray backgrounds */
-.light .bg-muted,
-.light .bg-card,
-.light [class*="bg-white/5"],
-.light [class*="bg-gray"],
-.light [class*="bg-black/"] {
-  background-color: white !important;
-}
-
-.light .border-border {
-  border-color: hsl(var(--border)) !important;
-}
+/* Light theme removed - platform is dark mode only */
 
 @layer base {
   * {
@@ -79,6 +41,8 @@
   
   html {
     overflow-x: hidden;
+    /* Force dark mode - prevent any light theme from appearing */
+    color-scheme: dark;
   }
   
   body {
@@ -86,6 +50,8 @@
     color: hsl(var(--foreground));
     overflow-x: hidden;
     font-feature-settings: "rlig" 1, "calt" 1;
+    /* Ensure body is always dark */
+    background-color: #0a0a0a;
   }
 }
 
@@ -186,75 +152,7 @@ pre code.hljs .hljs-regexp {
   color: #f87171; /* Red */
 }
 
-/* Light theme syntax highlighting */
-.light pre code.hljs {
-  color: #1e293b;
-}
-
-.light pre code.hljs .hljs-keyword,
-.light pre code.hljs .hljs-selector-tag,
-.light pre code.hljs .hljs-built_in,
-.light pre code.hljs .hljs-name,
-.light pre code.hljs .hljs-tag {
-  color: #7c3aed; /* Dark purple */
-  font-weight: 600;
-}
-
-.light pre code.hljs .hljs-string,
-.light pre code.hljs .hljs-title,
-.light pre code.hljs .hljs-section,
-.light pre code.hljs .hljs-attribute,
-.light pre code.hljs .hljs-literal,
-.light pre code.hljs .hljs-template-tag,
-.light pre code.hljs .hljs-template-variable,
-.light pre code.hljs .hljs-type,
-.light pre code.hljs .hljs-addition {
-  color: #059669; /* Dark green */
-}
-
-.light pre code.hljs .hljs-comment,
-.light pre code.hljs .hljs-quote,
-.light pre code.hljs .hljs-deletion,
-.light pre code.hljs .hljs-meta {
-  color: #64748b; /* Medium gray */
-  font-style: italic;
-}
-
-.light pre code.hljs .hljs-number {
-  color: #2563eb; /* Blue */
-  font-weight: 600;
-}
-
-.light pre code.hljs .hljs-function,
-.light pre code.hljs .hljs-title.function_ {
-  color: #d97706; /* Amber */
-}
-
-.light pre code.hljs .hljs-variable,
-.light pre code.hljs .hljs-attr {
-  color: #c026d3; /* Magenta */
-}
-
-.light pre code.hljs .hljs-operator {
-  color: #7c3aed; /* Purple */
-}
-
-.light pre code.hljs .hljs-punctuation {
-  color: #475569; /* Dark gray */
-}
-
-.light pre code.hljs .hljs-property {
-  color: #0891b2; /* Cyan */
-}
-
-.light pre code.hljs .hljs-class,
-.light pre code.hljs .hljs-title.class_ {
-  color: #ea580c; /* Orange */
-}
-
-.light pre code.hljs .hljs-regexp {
-  color: #dc2626; /* Red */
-}
+/* Light theme syntax highlighting removed - platform is dark mode only */
 
 /* Theme-specific code colors - SCOPED to docs container */
 [data-docs-container][data-theme="purple"] pre code.hljs {
@@ -365,11 +263,6 @@ pre code.hljs .hljs-regexp {
   border: none;
   padding: 0;
   margin: 0;
-}
-
-.light .prose pre {
-  background: transparent;
-  border: none;
 }
 
 .prose pre code {
